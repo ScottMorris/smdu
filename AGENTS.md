@@ -50,13 +50,23 @@
 - Keep internal triage mechanics in local runbooks, internal labels, and agent workflows only.
 - Use user-facing, outcome-focused language in PR titles and descriptions.
 - Only include internal process details in PR content when explicitly requested by the user.
+- Open pull requests ready for review by default. Only create a draft PR when the user explicitly asks for a draft or when there is a clearly communicated blocker that makes draft status necessary.
+
+**PR Description Format:**
+
+- Prefer a compact markdown structure with `## Summary` and `## Test plan`.
+- Under `## Summary`, use `###` sub-sections when they help group the change cleanly (for example, `### User-facing changes`, `### Packaging`, `### Documentation`).
+- Under each summary section, use flat bullets with bold lead-ins for scanability.
+- Keep the summary focused on outcomes and behaviour changes, not commit history or implementation chronology.
+- Under `## Test plan`, use checklist bullets (`- [x]` / `- [ ]`) with concrete commands, validations, or explicit gaps. If something could not be verified, state that plainly.
 
 ## Pull Request Labels
 
 **Requirement:** Every PR must include labels that describe the change and map to release-note categories.
 
-- Add at least one category label to every PR: `feat`, `feature`, `enhancement`, `fix`, `bug`, `bugfix`, `docs`, `test`, `ci`, `build`, or `chore`.
-- Add additional scope labels where helpful (for example, `release`, `ui`, `scanner`, `cli`).
+- Add at least one primary category label to every PR: `enhancement`, `bug`, `documentation`, `testing`, `ci`, `build`, or `chore`.
+- Prefer the broader Liminal HQ label style over Conventional Commit terms for PR labelling — use `enhancement`/`bug` rather than aliases like `feat`, `feature`, `fix`, `bugfix`, `docs`, or `test`.
+- Add additional scope labels where helpful (for example, `release`, `ui`, `scanner`, `cli`, `infrastructure`, `internal`).
 - Use `skip-changelog` only when a change should be excluded from generated release notes.
 - Keep labels accurate as scope changes during review.
 
@@ -73,6 +83,7 @@
 **Requirement:** Do not push changes (especially force pushes) to the repository unless explicitly requested by the user.
 
 - Do not squash-merge PRs unless the user explicitly requests squash for that PR.
+- **GitHub tooling:** Prefer the `gh` CLI for repository, pull request, label, review, and GitHub Actions work.
 
 ## Release Workflow
 
@@ -93,7 +104,7 @@
   - run `pnpm build`
 - Open a PR with:
   - a human-readable title (no Conventional Commit prefix)
-  - release-note category label(s) (`docs`, `chore`, `fix`, `feat`, etc.) plus `release` scope label when relevant
+  - release-note category label(s) (`documentation`, `chore`, `bug`, `enhancement`, etc.) plus `release` scope label when relevant
 - After merge, publish via an **annotated** Git tag that matches the release workflow trigger (`v*`) in `.github/workflows/release.yml`.
 - When creating the release tag message, include a concise summary derived from `docs/releases/v<version>.md` so the tag history preserves release context.
 - Do not push release branches or tags unless explicitly requested by the user.
@@ -101,7 +112,7 @@
 ## Testing
 
 - **Mandatory Testing:** Make sure the unit tests are run after changes to the code.
-- **Verification:** Always verify code changes by running relevant tests.
+- **Verification:** Always verify code changes by running relevant tests. If verification is incomplete or blocked, say so plainly rather than implying it passed.
 - **Build Check:** Run `pnpm build` to surface any TypeScript errors.
 - **Format Check:** Run `pnpm format:check` before opening or updating a PR, and run `pnpm format` if any files fail formatting.
 
@@ -120,6 +131,7 @@
 - **Requirement:** New source files (and substantially rewritten source files) should include a short header as the first content in the file.
 - **Applies to:** `.ts`, `.tsx`, `.js` source files in `src/` and `tests/` (and scripts where appropriate).
 - **Do not add headers to:** generated files, lockfiles, config files (`.json`, `.yml`, etc.), markdown docs, or man pages.
+- When visiting an existing file that lacks a header, add one as part of the current change.
 
 Preferred header format for TypeScript/JavaScript:
 
