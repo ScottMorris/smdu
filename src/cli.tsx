@@ -9,6 +9,7 @@ import { render } from 'ink';
 import { Command } from 'commander';
 import { App } from './App.js';
 import { VERSION } from './version.js';
+import { StdinEscapeBuffer } from './stdinEscapeBuffer.js';
 
 const program = new Command();
 
@@ -54,6 +55,7 @@ program
 				units={options.units}
 				onSuspend={handleSuspend}
 			/>,
+			{ stdin: new StdinEscapeBuffer(process.stdin) as unknown as NodeJS.ReadStream },
 		);
 
 		if (shouldUseAltBuffer) {
