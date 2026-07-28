@@ -3,11 +3,12 @@
 smdu \- See My Disk Usage - A clone of ncdu
 .SH SYNOPSIS
 .B smdu
-[\fIpath\fR] [\fIoptions\fR]
+[\fIpath\fR ...] [\fIoptions\fR]
 .SH DESCRIPTION
 .B smdu
 is a TUI disk usage analyser inspired by \fBncdu\fR(1). It recursively scans directories to calculate file sizes and displays them in an interactive file tree. The header shows the current path with a right-aligned \fBsmdu\fR version label. It features various view modes, sorting options, theming, and a focus timer.
 Review mode adds an analysis-first view with ranked and grouped descendants under the current root.
+Multiple paths may be given (\fBsmdu /var/log /var/cache\fR); they are combined under a single virtual root labelled with their basenames so unrelated directories can be compared in one session.
 .SH OPTIONS
 .TP
 .BR \-t ", " \-\-theme " \fItheme\fR"

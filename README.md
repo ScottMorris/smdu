@@ -129,6 +129,14 @@ Or specify a path:
 smdu /var/log
 ```
 
+You can also scan multiple paths at once:
+
+```bash
+smdu /var/log /var/cache
+```
+
+SMDU combines the given paths under a virtual root (labelled with their names) so you can compare disk usage across unrelated directories in a single session.
+
 ### Options
 
 - `--theme <name>`: Choose a theme (default, classic, dracula). This overrides the configuration file.
