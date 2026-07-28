@@ -23,6 +23,7 @@ Windows release packaging must produce MSI installer artefacts for supported arc
 ## Features
 
 - **Directory Scanning:** Recursively scans directories to calculate file sizes.
+- **Multi-Path Scanning:** Accepts multiple path arguments (`smdu /var/log /var/cache`) and combines them under a single virtual root labelled with their basenames, so unrelated directories can be compared in one session.
 - **Visual Interface:** Displays a file tree with size bars and percentages.
 - **Navigation:** Navigate through directories using arrow keys (Up/Down to move, Right/Enter to enter, Left/Backspace to go up).
 - **Sorting:** Sort files by name or size.
